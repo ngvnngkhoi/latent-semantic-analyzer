@@ -1,1 +1,1 @@
-# web_scraper
+# Semantic Analyzer
