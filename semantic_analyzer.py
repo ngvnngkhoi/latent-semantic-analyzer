@@ -24,7 +24,7 @@ def clean_text(html: str) -> str:
     return soup.get_text()
 
 
-def LSA(html: str, dbug: bool = False) -> None:
+def LSA(html: str, dbug: bool, iterations) -> None:
     """
     Performs Latent Semantic Analysis (LSA) on an HTML document.
 
@@ -51,7 +51,7 @@ def LSA(html: str, dbug: bool = False) -> None:
     X = vectorizer.fit_transform([cleaned_html])
 
     # Define the decomposer
-    lsa = TruncatedSVD(n_components=27, n_iter=300)
+    lsa = TruncatedSVD(n_components=27, n_iter= iterations)
     lsa.fit(X)
 
     # Get feature names and weights
@@ -61,10 +61,10 @@ def LSA(html: str, dbug: bool = False) -> None:
     # Sort terms based on weights in descending order
     sorted_terms = sorted(term_weights, key=lambda x: x[1], reverse=True)
 
-    # Print the most important words
-    print('Most important words (sorted by weight):')
-    for term, weight in sorted_terms:
-        print(f'{term}: {weight}')
+    # # Print the most important words
+    # print('Most important words (sorted by weight):')
+    # for term, weight in sorted_terms:
+    #     print(f'{term}: {weight}')
 
     # Print the sparse matrix if in debug mode
     if dbug:
